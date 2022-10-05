@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goodee.dao.MapperDAO">
+
+	<insert id="insertInfo">
+		insert into login (id,pw,nick,who) values(#{id},#{pw},#{nick},#{who})
+	</insert>
+	
+	<update id="updateContent">
+		update login SET content=#{content}, quiz=#{quiz}, answer=#{answer} where num=#{num}
+	</update>
+	
+	<select id="userId" resultType="String">
+    	select id from login where id = #{id}
+	</select>
+
+	<select id="userNick" resultType="String">
+		select nick from login where id = #{id}
+	</select>
+	
+	<select id="userNum" resultType="int">
+		select num from login where id = #{id}
+	</select>
+	
+	<select id="userCheck" resultType="int">
+		select count(*) from login where id=#{id} and pw = #{pw} and who = #{who}
+	</select>
+	
+	<select id="Content" resultType="LoginVO">
+		select content,nick,quiz,answer from login where who="student"
+		limit 0,20
+	</select>
+	
+	<select id="Content2" resultType="LoginVO" parameterType="LoginVO">
+		select answer from login where quiz=#{quiz}
+	</select>
+	
+</mapper>
